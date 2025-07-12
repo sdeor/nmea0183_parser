@@ -1,7 +1,18 @@
 [package]
 name = "nmea0183_parser"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 
 [dependencies]
+heapless = "0.8.0"
 nom = "8.0.0"
+serde = { version = "1.0.219", optional = true, features = ["derive"] }
+time = { version = "0.3.41", optional = true }
+
+[features]
+default = ["nmea-content"]
+serde = ["dep:serde", "heapless/serde", "time/serde"]
+nmea-content = ["dep:time"]
+nmea-v2-3 = ["nmea-content"]
+nmea-v3-0 = ["nmea-v2-3"]
+nmea-v4-11 = ["nmea-v3-0"]
